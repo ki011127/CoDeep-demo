@@ -19,13 +19,14 @@ class MODEL:
     def __init__(self):
         # 객체 생성
         self.llm = ChatOpenAI(model="gpt-4")
-        self.template = """ I want to make an short interactive story.
-
+        self.template = """make a story based on user input. The user is the main character of the story.
         The background of the story is a fantasy magical world.
-        Naturally ask questions related to a frequently spoken English conversation.
+        The main character is a great wizard who went back in time just before he died.
+        It's a story about fighting to stop an evil dragon.
+
+        Please set turning point and ask questions for user input related to English conversation.
         For English conversation, I think it would be good to talk with npc.
         Don't give an example answer to the question so that the user can think freely.
-
         You must finish after asking a question.
         """
         self.prompt_template = PromptTemplate(
@@ -40,7 +41,6 @@ class MODEL:
         full=""
         for s in self.chain.stream(input={}):
             full+=s["result"]
-    # 스트림에서 받은 데이터의 내용을 출력합니다. 줄바꿈 없이 이어서 출력하고, 버퍼를 즉시 비웁니다.
             with st.chat_message("assistant"):
                 message_placeholder = st.empty()
                 full_response = ""
@@ -53,8 +53,13 @@ class MODEL:
         st.session_state.messages.append({"role": "assistant", "content": full})
 
     def story(self, chatting):
-        self.template = """ Create a story that follows through {chatting} for {quest}.
-        Please set another turning point and ask questions related to English conversation.
+        self.template = """ make a story based on user input. The user is the main character of the story.
+        Create a story that follows through {chatting} for {quest}.
+        The background of the story is a fantasy magical world.
+        The main character is a great wizard who went back in time just before he died.
+        It's a story about fighting to stop an evil dragon.
+
+        Please set turning point and ask questions for user input related to English conversation.
         For English conversation, I think it would be good to talk with npc.
         Don't give an example answer to the question so that the user can think freely.
 
