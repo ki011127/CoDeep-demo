@@ -19,10 +19,11 @@ class MODEL:
     def __init__(self):
         # 객체 생성
         self.llm = ChatOpenAI(model="gpt-4")
-        self.template = """make a story based on user input. The user is the main character of the story.
+        self.template = """make a story based on user input.
         The background of the story is a fantasy magical world.
         The main character is a great wizard who went back in time just before he died.
         It's a story about fighting to stop an evil dragon.
+        The user is the main character of the story.
 
         Please set turning point and ask questions for user input related to English conversation.
         For English conversation, I think it would be good to talk with npc.
@@ -53,12 +54,13 @@ class MODEL:
         st.session_state.messages.append({"role": "assistant", "content": full})
 
     def story(self, chatting):
-        self.template = """ make a story based on user input. The user is the main character of the story.
+        self.template = """ make a story based on user input.
         Create a story that follows through {chatting} for {quest}.
         The background of the story is a fantasy magical world.
         The main character is a great wizard who went back in time just before he died.
         It's a story about fighting to stop an evil dragon.
-
+        The user is the main character of the story.
+        
         Please set turning point and ask questions for user input related to English conversation.
         For English conversation, I think it would be good to talk with npc.
         Don't give an example answer to the question so that the user can think freely.
